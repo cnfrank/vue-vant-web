@@ -1,4 +1,4 @@
-# vue-vant
+# vue-vant-web
 
 ## Project setup
 ```
