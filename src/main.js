@@ -3,7 +3,7 @@
  * @Email: cnfrank527@gmail.com
  * @Date: 2021-12-21 20:17:48
  * @LastEditors: Frank Zhou
- * @LastEditTime: 2021-12-21 22:20:53
+ * @LastEditTime: 2021-12-22 18:49:14
  * @Description: file content
  * @FilePath: /vue-vant-web/src/main.js
  */
