@@ -3,7 +3,7 @@
  * @Email: cnfrank527@gmail.com
  * @Date: 2021-12-21 20:42:54
  * @LastEditors: Frank Zhou
- * @LastEditTime: 2021-12-23 00:02:56
+ * @LastEditTime: 2021-12-24 23:02:52
  * @Description: file content
  * @FilePath: /vue-vant-web/src/views/login/index.vue
 -->
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   name: 'LoginIndex',
   components: {},
@@ -64,16 +65,32 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    onSubmit() {
+    async onSubmit() {
       //1.获取表单数据
       const user = this.user
 
       //2.表单验证
 
       //3.提交表单请求登录
+      try {
+        const res = await login(user)
+
+        if (res.status === 200) {
+          console.log('请求success', res)
+          if (res.data.code === 403) {
+            console.log('403' + res.data.msg)
+            // 在组件中需要使用this.$toast 来调用Toast组件
+            this.$toast(res.data.msg)
+          }
+        } else {
+          console.log('请求异常', res)
+        }
+      } catch (err) {
+        console.log('请求fail', err)
+      }
 
       //4.根据返回处理逻辑
-      console.log(user)
+      console.log()
     },
   },
 }
