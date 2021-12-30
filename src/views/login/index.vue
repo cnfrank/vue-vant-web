@@ -3,7 +3,7 @@
  * @Email: cnfrank527@gmail.com
  * @Date: 2021-12-21 20:42:54
  * @LastEditors: Frank Zhou
- * @LastEditTime: 2021-12-24 23:02:52
+ * @LastEditTime: 2021-12-25 00:26:39
  * @Description: file content
  * @FilePath: /vue-vant-web/src/views/login/index.vue
 -->
@@ -28,7 +28,13 @@
         :rules="ruleCollection.code"
         ><i slot="left-icon" class="iconfont iconyanzhengma"></i
         ><template #button>
-          <van-button round size="small" type="default" class="send-sms-btn"
+          <van-button
+            round
+            size="small"
+            native-type="button"
+            type="default"
+            class="send-sms-btn"
+            @click="onSendSMS"
             >Send SMS</van-button
           >
         </template></van-field
@@ -51,8 +57,14 @@ export default {
   data() {
     return {
       user: {
-        mobile: '',
+        // username: 'cnfrank',
+        // password: '88317625',
+        // captchaOptions: {
+        //   deviceId: '16402700535387435325',
+        //   scene: 'login',
+        // },
         code: '',
+        mobile: '',
       },
       ruleCollection: {
         mobile: [{ required: true, message: 'mobile is required' }],
@@ -65,18 +77,30 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onSendSMS() {
+      //1.验证手机号
+      //2.验证通过，显示倒计时
+      //3.请求发送验证码
+      // sendSMS()
+    },
     async onSubmit() {
       //1.获取表单数据
       const user = this.user
 
       //2.表单验证
-
+      this.$toast.loading({
+        message: 'Logining',
+        forbidClick: true,
+        //禁用背景点击
+        duration: 0,
+      })
       //3.提交表单请求登录
       try {
         const res = await login(user)
 
         if (res.status === 200) {
           console.log('请求success', res)
+          this.$toast.success('请求success')
           if (res.data.code === 403) {
             console.log('403' + res.data.msg)
             // 在组件中需要使用this.$toast 来调用Toast组件
